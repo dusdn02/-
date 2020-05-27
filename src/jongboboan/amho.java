@@ -9,25 +9,29 @@ public class amho {
 		char input[] = new char[25];
 		char temp[] = new char[25];
 		//스트링으로 입력 받기
-		inputS = sc.next();
+		inputS = sc.nextLine();
 		
 		for(int i=0; i<inputS.length(); i++) {
 			temp[i]=inputS.charAt(i);
 		}
+		char alpabet='a';
+		for(int i=inputS.length(); i<temp.length; i++) {
+			temp[i]=alpabet;
+			alpabet++;
+		}
 		//스트링을 char로 바꾸기, 중복제거
 		for(int i=0; i<inputS.length(); i++) {
-			for(int j=1;j<inputS.length();j++) {
-				if(temp[i] == inputS.charAt(j)) {
-					continue;
+			for(int j=0; j<inputS.length(); j++) {
+				if(temp[i] == temp[j] || i==j) {
+						break;
 				}
-				System.out.print("input[i]:"+input[i]+"  inputS.charAt(j):"+inputS.charAt(j));
-				System.out.println();
-				input[i]=inputS.charAt(j);
+				input[j]=temp[j];
 			}
 		}
 		for(int i=0; i<input.length; i++) {
 			System.out.print(input[i]);
 		}
+		
 		
 		//입력받은 문자를 암호판에 넣었을 경우 행과열 구하기
 		int col = (inputS.length())/5;
@@ -35,7 +39,7 @@ public class amho {
 //		System.out.println("col:"+col+", row:"+row);
 		
 		char arr[][] = new char[5][5];
-		char alpabet = 'A';
+		alpabet = 'A';
 		
 		for(int i=col; i<arr.length; i++) {
 			for(int j=row; j<arr[0].length; j++) {

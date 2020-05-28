@@ -3,62 +3,66 @@ package jongboboan;
 import java.util.Scanner;
 
 public class amho {
+	
+	public static char alphabetBoard[][] = new char[5][5];
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
-		String inputS = new String();
-		char input[] = new char[25];
-		char temp[] = new char[25];
+//		System.out.print("암호화할 문자열을 입력하세요 : ");
+//		String str =  sc.nextLine();	
+		
 		//스트링으로 입력 받기
-		inputS = sc.nextLine();
+		System.out.print("암호화에 쓰일 키를 입력하세요 : ");
+		String key = sc.nextLine();	
 		
-		for(int i=0; i<inputS.length(); i++) {
-			temp[i]=inputS.charAt(i);
-		}
-		char alpabet='a';
-		for(int i=inputS.length(); i<temp.length; i++) {
-			temp[i]=alpabet;
-			alpabet++;
-		}
+		
 		//스트링을 char로 바꾸기, 중복제거
-		for(int i=0; i<inputS.length(); i++) {
-			for(int j=0; j<inputS.length(); j++) {
-				if(temp[i] == temp[j] || i==j) {
-						break;
+		setBoard(key);
+						
+		
+	}
+	
+	private static void setBoard(String key) {
+		String keyForSet = "";					// 중복된 문자가 제거된 문자열을 저장할 문자열.
+		boolean duplicationFlag = false;		// 문자 중복을 체크하기 위한 flag 변수.
+		int keyLengthCount = 0;					// alphabetBoard에 keyForSet을 넣기 위한 count변수.
+		
+		key += "abcdefghijklmnopqrstuvwxyz"; 	// 키에 모든 알파벳을 추가.
+
+		
+		// 중복처리
+		for( int i = 0 ; i < key.length() ; i++ ) 
+		{
+			for( int j = 0 ; j < keyForSet.length() ; j++ )
+			{
+				if(key.charAt(i)==keyForSet.charAt(j))
+				{
+					duplicationFlag = true;
+					break;
 				}
-				input[j]=temp[j];
 			}
+			if(!(duplicationFlag)) keyForSet += key.charAt(i);
+			duplicationFlag = false;
 		}
-		for(int i=0; i<input.length; i++) {
-			System.out.print(input[i]);
-		}
-		
-		
-		//입력받은 문자를 암호판에 넣었을 경우 행과열 구하기
-		int col = (inputS.length())/5;
-		int row = (inputS.length())%5;
-//		System.out.println("col:"+col+", row:"+row);
-		
-		char arr[][] = new char[5][5];
-		alpabet = 'A';
-		
-		for(int i=col; i<arr.length; i++) {
-			for(int j=row; j<arr[0].length; j++) {
-				arr[i][j]=input[i+j];
+		//배열에 대입
+		for( int i = 0 ; i < alphabetBoard.length ; i++ )
+		{
+			for( int j = 0; j <alphabetBoard[i].length ; j++ )
+			{
+				alphabetBoard[i][j] = keyForSet.charAt(keyLengthCount++);
 			}
-		}
-		
-		for(int i=col; i<arr.length; i++) {
-			for(int j=row; j<arr[0].length; j++) {
-				arr[i][j]=input[i+j];
+		}		
+		//배열에 대입
+		for( int i = 0 ; i < alphabetBoard.length ; i++ )
+		{
+			for( int j = 0; j <alphabetBoard[i].length ; j++ )
+			{
+				System.out.print(alphabetBoard[i][j]+"-");
 			}
-		}
+			System.out.println();
+		}		
+						
 		
-		for(int i=0; i<arr.length; i++) { 
-			for(int j=0; j<arr[0].length; j++) {
-				arr[i][j]=alpabet;
-				alpabet++;
-			}
-		}
 	}
 
 }

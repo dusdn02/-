@@ -1,5 +1,7 @@
 package jongboboan;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -14,9 +16,12 @@ public class encryp extends JPanel{
 	JLabel atext = new JLabel("문장 : ");
 	JTextField T_amhokey = new JTextField();
 	JTextField T_atext = new JTextField();
+	String str;
+	String key;
+	String encryption;
 	
 	public encryp(){
-		String encryption;
+		
 		setLayout(null);
 		
 		result.setBounds(200, 250,100,80);
@@ -31,36 +36,58 @@ public class encryp extends JPanel{
 		add(T_amhokey);
 		add(T_atext);
 		
-		String key = T_amhokey.getText();
-		String str = T_atext.getText();
+		
+		
+		System.out.println(key);
+		result.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				key = T_amhokey.getText();
+				str = T_atext.getText();
+				String blankCheck="";
+				
+				setBoard(key);
+				
+				for( int i = 0 ; i < str.length() ; i++ ) 
+				{
+					if(str.charAt(i)==' ') //공백제거
+					{
+						//Remove_white_space(str, blankCheck, i);
+						str = str.substring(0,i)+str.substring(i+1,str.length());
+						blankCheck+=10;
+					}
+					else
+					{
+						blankCheck+=0;
+					}
+					if(str.charAt(i)=='z') //z를 q로 바꿔줘서 처리함.
+					{
+						//Change_Z(str, i);
+						str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
+						amho.zCheck+=1;
+					}
+					else 
+					{
+						amho.zCheck+=0;
+					}
+				}
+				
+				encryption = strEncryption(key, str);
+				
+			}
+		});
 
-		String blankCheck="";
 		
-		setBoard(key);
-		
-		for( int i = 0 ; i < str.length() ; i++ ) 
-		{
-			if(str.charAt(i)==' ') //공백제거
-			{
-				str = str.substring(0,i)+str.substring(i+1,str.length());
-				blankCheck+=10;
-			}
-			else
-			{
-				blankCheck+=0;
-			}
-			if(str.charAt(i)=='z') //z를 q로 바꿔줘서 처리함.
-			{
-				str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
-				amho.zCheck+=1;
-			}
-			else 
-			{
-				amho.zCheck+=0;
-			}
-		}
-		
-		encryption = strEncryption(key, str);
+	}
+	
+	void Remove_white_space(String str, String blankCheck, int i) {
+		str = str.substring(0,i)+str.substring(i+1,str.length());
+		blankCheck+=10;
+	}
+	void Change_Z(String str, int i) {
+		str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
+		amho.zCheck+=1;
 	}
 	
 	String strEncryption(String key, String str){

@@ -10,19 +10,22 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class amho extends JFrame{
-	public amho amho = null;
-	public encryp encr = new encryp();
-	public Decry decr = new Decry();
+	public amho amho;
+	public encryp encr;
+	public Decry decr;
+	public Result result = new Result();
 	Panel p = new Panel();
 	JButton am = new JButton("암호화");
 	JButton bok = new JButton("복호화");
 	
-	public static char alphabetBoard[][] = new char[5][5];
+	char alphabetBoard[][] = new char[5][5];
 	boolean oddFlag = false; //글자수 출력
 	String zCheck ="";
 	
 	//액션리스너로 패널 이동
 	public void change(String panelName) {
+		encr=new encryp();
+		decr = new Decry();
 		if (panelName.equals("암호화")) {
 			getContentPane().removeAll();
 			getContentPane().add(encr);
@@ -33,8 +36,15 @@ public class amho extends JFrame{
 			getContentPane().add(decr);
 			decr.revalidate();
 			decr.repaint();
+		}else if(panelName.equals("결과")) {
+			getContentPane().removeAll();
+			getContentPane().add(result);
+			result.revalidate();
+			result.repaint();
 		}
 	}
+	
+	
 	
 	public amho() {
 		p.setLayout(null);

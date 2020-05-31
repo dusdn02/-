@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 public class encryp extends JPanel{
 	amho amho = new amho();
+	Result res;
 	JButton result = new JButton("결과");
 	JLabel amhokey = new JLabel("암호키 : ");
 	JLabel atext = new JLabel("문장 : ");
@@ -75,6 +76,7 @@ public class encryp extends JPanel{
 				
 				encryption = strEncryption(key, str);
 				amho.change("결과");
+				res = new Result(key, str, encryption);
 			}
 		});
 

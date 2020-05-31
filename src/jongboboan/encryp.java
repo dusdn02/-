@@ -17,9 +17,9 @@ public class encryp extends JPanel{
 	JLabel atext = new JLabel("문장 : ");
 	JTextField T_amhokey = new JTextField();
 	JTextField T_atext = new JTextField();
-	public String str;
-	public String key;
-	public String encryption;
+	public String str = "";
+	public String key="";
+	public String encryption="";
 	
 	public encryp(){
 		
@@ -76,21 +76,38 @@ public class encryp extends JPanel{
 				
 				encryption = strEncryption(key, str);
 				amho.change("결과");
-				res = new Result(key, str, encryption);
+//				res = new Result(key, str, encryption);
+//				am_Result(key, str, encryption);
+				System.out.println(key+"***"+str+"***"+encryption);
 			}
 		});
 
 		
 	}
 	
-	void Remove_white_space(String str, String blankCheck, int i) {
-		str = str.substring(0,i)+str.substring(i+1,str.length());
-		blankCheck+=10;
-	}
-	void Change_Z(String str, int i) {
-		str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
-		amho.zCheck+=1;
-	}
+//	void am_Result(String key, String str, String encry){
+//		JPanel p = new JPanel();
+//		JLabel R_amhokey = new JLabel();
+//		JLabel R_text = new JLabel();
+//		JLabel R_amtext = new JLabel();
+//		
+//		setLayout(null);
+//		R_amhokey.setBounds(150, 100, 200, 50);
+//		R_text.setBounds(150, 150, 200, 50);
+//		R_amtext.setBounds(150, 200, 200, 50);
+//	
+//		
+//		R_amhokey.setText("암호키 : "+key.toString());
+//		R_text.setText("평문 : " + str.toString());
+//		R_amtext.setText("암호문 : "+encry.toString());
+//		
+//		p.add(R_amhokey);
+//		p.add(R_text);
+//		p.add(R_amtext);
+//		
+//		this.add(p);
+//		
+//	}
 	
 	String strEncryption(String key, String str){
 		ArrayList<char[]> playFair = new ArrayList<char[]>();

@@ -66,7 +66,7 @@ public class Decry extends JPanel{
 				
 				System.out.println("복호화된 문자열 : " + decryption);
 				amho.change("결과");
-				res = new Result(key, str, decryption);
+//				res = new Result(key, str, decryption);
 				
 			}
 		});

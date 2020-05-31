@@ -10,7 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class amho extends JFrame{
-//	public amho amho;
 	public encryp encr;
 	public Decry decr;
 	public Result result;
@@ -24,7 +23,7 @@ public class amho extends JFrame{
 	
 	//액션리스너로 패널 이동
 	public void change(String panelName) {
-		
+		System.out.println("*****");
 		
 		
 		if (panelName.equals("암호화")) {
@@ -40,7 +39,7 @@ public class amho extends JFrame{
 			decr.revalidate();
 			decr.repaint();
 		}else if(panelName.equals("결과")) {
-			result = new Result("","","");
+			result = new Result();
 			getContentPane().removeAll();
 			getContentPane().add(result);
 			result.revalidate();
@@ -90,6 +89,7 @@ public class amho extends JFrame{
 	public static void main(String[] args) {
 		
 		amho amho = new amho();
+
 //		amho.encr = new encryp();
 //		amho.decr = new Decry();
 //		amho.result = new Result("","","");

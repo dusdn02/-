@@ -13,7 +13,7 @@ public class amho extends JFrame{
 	public amho amho;
 	public encryp encr;
 	public Decry decr;
-	public Result result = new Result();
+	public Result result;
 	Panel p = new Panel();
 	JButton am = new JButton("암호화");
 	JButton bok = new JButton("복호화");
@@ -26,6 +26,7 @@ public class amho extends JFrame{
 	public void change(String panelName) {
 		encr=new encryp();
 		decr = new Decry();
+		result = new Result();
 		if (panelName.equals("암호화")) {
 			getContentPane().removeAll();
 			getContentPane().add(encr);
@@ -78,6 +79,7 @@ public class amho extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(550, 400);
+		setLocation(400, 100);
 	    setVisible(true);
 	}
 
@@ -86,18 +88,6 @@ public class amho extends JFrame{
 		
 		new amho();
 		
-//		Scanner sc = new Scanner(System.in);
-//		System.out.print("암호화할 문자열을 입력하세요 : ");
-//		String str =  sc.nextLine();	
-		
-		//스트링으로 입력 받기
-//		System.out.print("암호화에 쓰일 키를 입력하세요 : ");
-//		String key = sc.nextLine();	
-		
-		
-		//스트링을 char로 바꾸기, 중복제거
-//		setBoard(key);
-						
 		
 	}
 	

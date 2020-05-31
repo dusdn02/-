@@ -16,9 +16,9 @@ public class encryp extends JPanel{
 	JLabel atext = new JLabel("문장 : ");
 	JTextField T_amhokey = new JTextField();
 	JTextField T_atext = new JTextField();
-	String str;
-	String key;
-	String encryption;
+	public String str;
+	public String key;
+	public String encryption;
 	
 	public encryp(){
 		
@@ -38,7 +38,7 @@ public class encryp extends JPanel{
 		
 		
 		
-		System.out.println(key);
+//		System.out.println(key);
 		result.addActionListener(new ActionListener() {
 			
 			@Override
@@ -74,7 +74,7 @@ public class encryp extends JPanel{
 				}
 				
 				encryption = strEncryption(key, str);
-				
+				amho.change("결과");
 			}
 		});
 

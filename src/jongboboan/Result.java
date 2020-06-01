@@ -4,9 +4,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Result extends JPanel {
-	encryp encr = new encryp();
+	amho amho;
+//	encryp encr = new encryp(amho);
 
-	public Result() {
+	public Result(encryp encr) {
 		
 		
 

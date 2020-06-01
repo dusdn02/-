@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class encryp extends JPanel{
-	amho amho = new amho();
+	amho amho;
 	Result res;
 	JButton result = new JButton("결과");
 	JLabel amhokey = new JLabel("암호키 : ");
@@ -21,8 +21,8 @@ public class encryp extends JPanel{
 	public String key="";
 	public String encryption="";
 	
-	public encryp(){
-		
+	public encryp(amho amho){
+		this.amho = amho;
 		setLayout(null);
 		
 		result.setBounds(200, 250,100,80);

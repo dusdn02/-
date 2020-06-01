@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class Decry extends JPanel{
-	amho amho = new amho();
+	amho amho;
 	encryp encr;
 	Result res;
 	JButton result = new JButton("결과");
@@ -22,7 +22,8 @@ public class Decry extends JPanel{
 	public String key;
 	public String decryption;
 	
-	public Decry() {
+	public Decry(amho amho) {
+		this.amho = amho;
 		setLayout(null);
 		
 		result.setBounds(200, 250,100,80);
@@ -46,15 +47,15 @@ public class Decry extends JPanel{
 				str = T_atext.getText();
 				String blankCheck="";
 				
-				encr.setBoard(key);
+//				encr.setBoard(key);
 				
-				for( int i = 0 ; i < encr.encryption.length() ; i++ ) 
+				for( int i = 0 ; i < amho.encr.encryption.length() ; i++ ) 
 				{
-					if(encr.encryption.charAt(i)==' ') //공백제거
-						encr.encryption = encr.encryption.substring(0,i)+encr.encryption.substring(i+1,encr.encryption.length());
+					if(amho.encr.encryption.charAt(i)==' ') //공백제거
+						amho.encr.encryption = amho.encr.encryption.substring(0,i)+amho.encr.encryption.substring(i+1,amho.encr.encryption.length());
 				}
 				
-				decryption = strDecryption(key, encr.encryption, amho.zCheck);
+				decryption = strDecryption(key, amho.encr.encryption, amho.zCheck);
 				
 				for( int i = 0 ; i < decryption.length() ; i++)
 				{

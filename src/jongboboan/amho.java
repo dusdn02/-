@@ -34,7 +34,7 @@ public class amho extends JFrame{
 			this.revalidate();
 			this.repaint();
 		} else if (panelName.equals("º¹È£È­")) {
-			decr = new Decry();
+			decr = new Decry(amho);
 			getContentPane().removeAll();
 			getContentPane().add(decr);
 			decr.revalidate();
@@ -90,10 +90,6 @@ public class amho extends JFrame{
 	public static void main(String[] args) {
 		
 		amho = new amho();
-
-//		amho.encr = new encryp();
-//		amho.decr = new Decry();
-//		amho.result = new Result("","","");
 	}
 	
 	 

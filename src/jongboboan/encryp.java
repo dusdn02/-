@@ -44,8 +44,8 @@ public class encryp extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				key = T_amhokey.getText();
-				str = T_atext.getText();
+				key = T_amhokey.getText();//암호키 받기
+				str = T_atext.getText();//평문 받기
 				String blankCheck="";
 				
 				setBoard(key);
@@ -54,7 +54,6 @@ public class encryp extends JPanel{
 				{
 					if(str.charAt(i)==' ') //공백제거
 					{
-						//Remove_white_space(str, blankCheck, i);
 						str = str.substring(0,i)+str.substring(i+1,str.length());
 						blankCheck+=10;
 					}
@@ -64,7 +63,6 @@ public class encryp extends JPanel{
 					}
 					if(str.charAt(i)=='z') //z를 q로 바꿔줘서 처리함.
 					{
-						//Change_Z(str, i);
 						str = str.substring(0,i)+'q'+str.substring(i+1,str.length());
 						amho.zCheck+=1;
 					}
@@ -84,30 +82,6 @@ public class encryp extends JPanel{
 
 		
 	}
-	
-//	void am_Result(String key, String str, String encry){
-//		JPanel p = new JPanel();
-//		JLabel R_amhokey = new JLabel();
-//		JLabel R_text = new JLabel();
-//		JLabel R_amtext = new JLabel();
-//		
-//		setLayout(null);
-//		R_amhokey.setBounds(150, 100, 200, 50);
-//		R_text.setBounds(150, 150, 200, 50);
-//		R_amtext.setBounds(150, 200, 200, 50);
-//	
-//		
-//		R_amhokey.setText("암호키 : "+key.toString());
-//		R_text.setText("평문 : " + str.toString());
-//		R_amtext.setText("암호문 : "+encry.toString());
-//		
-//		p.add(R_amhokey);
-//		p.add(R_text);
-//		p.add(R_amtext);
-//		
-//		this.add(p);
-//		
-//	}
 	
 	String strEncryption(String key, String str){
 		ArrayList<char[]> playFair = new ArrayList<char[]>();
@@ -195,45 +169,39 @@ public class encryp extends JPanel{
 	}
 	
 	void setBoard(String key) {
-		String keyForSet = "";					// 중복된 문자가 제거된 문자열을 저장할 문자열.
-		boolean duplicationFlag = false;		// 문자 중복을 체크하기 위한 flag 변수.
-		int keyLengthCount = 0;					// alphabetBoard에 keyForSet을 넣기 위한 count변수.
+		String tmp_key = "";					// 중복된 문자가 제거된 문자열을 저장할 문자열.
+		int chk=0;				
 		
 		key += "abcdefghijklmnopqrstuvwxyz"; 	// 키에 모든 알파벳을 추가.
 
 		
 		// 중복처리
-		for( int i = 0 ; i < key.length() ; i++ ) 
-		{
-			for( int j = 0 ; j < keyForSet.length() ; j++ )
-			{
-				if(key.charAt(i)==keyForSet.charAt(j))
-				{
-					duplicationFlag = true;
+		for(int i=0; i<key.length(); i++) {
+			for(int j=0; j<tmp_key.length(); j++) {
+				if(key.charAt(i)==tmp_key.charAt(j)) {
+					chk=1;
 					break;
 				}
 			}
-			if(!(duplicationFlag)) keyForSet += key.charAt(i);
-			duplicationFlag = false;
+			if(chk==0)
+				tmp_key += key.charAt(i);
+			chk=0;
+			
 		}
-		//배열에 대입
-		for( int i = 0 ; i < amho.alphabetBoard.length ; i++ )
-		{
-			for( int j = 0; j <amho.alphabetBoard[i].length ; j++ )
-			{
-				amho.alphabetBoard[i][j] = keyForSet.charAt(keyLengthCount++);
+//		System.out.println("key확인 : "+tmp_key);
+		//암호판에 넣기
+		int cnt = 0;	
+		for( int i = 0 ; i < amho.alphabetBoard.length ; i++ ){
+			for( int j = 0; j <amho.alphabetBoard[i].length ; j++ ){
+				amho.alphabetBoard[i][j] = tmp_key.charAt(cnt++);
 			}
 		}		
-		//배열에 대입
-		for( int i = 0 ; i < amho.alphabetBoard.length ; i++ )
-		{
-			for( int j = 0; j <amho.alphabetBoard[i].length ; j++ )
-			{
+		//암호판 출력
+		for( int i = 0 ; i < amho.alphabetBoard.length ; i++ ){
+			for( int j = 0; j <amho.alphabetBoard[i].length ; j++ ){
 				System.out.print(amho.alphabetBoard[i][j]+"-");
 			}
 			System.out.println();
 		}		
-						
-		
 	}
 }

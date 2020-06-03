@@ -20,7 +20,10 @@ public class encryp extends JPanel {
 	public String str = "";
 	public String key = "";
 	public String encryption = "";
+	String encr="";
 
+	
+	
 	public encryp(amho amho) {
 		this.amho = amho;
 		setLayout(null);
@@ -55,12 +58,12 @@ public class encryp extends JPanel {
 					} else {
 						blankCheck += 0;
 					}
-					if (str.charAt(i) == 'z') {
-						str = str.substring(0, i) + 'q' + str.substring(i + 1, str.length());
-						amho.zCheck += 1;
-					} else {
-						amho.zCheck += 0;
-					}
+//					if (str.charAt(i) == 'z') {
+//						str = str.substring(0, i) + 'q' + str.substring(i + 1, str.length());
+//						amho.zCheck += 1;
+//					} else {
+//						amho.zCheck += 0;
+//					}
 				}
 
 				encryption = strEncryption(key, str);
@@ -76,67 +79,103 @@ public class encryp extends JPanel {
 	String strEncryption(String key, String str) {
 		ArrayList<char[]> playFair = new ArrayList<char[]>();
 		ArrayList<char[]> encPlayFair = new ArrayList<char[]>();
-		int r1 = 0, r2 = 0, c1 = 0, c2 = 0;
-		String encStr = "";
+		String enStr = "";
+		
+
+		str = str.replaceAll(" ", "");// str 공백 제거
+//		System.out.println(str);
 
 		for (int i = 0; i < str.length(); i += 2) {
-			char[] tmpArr = new char[2];
-			tmpArr[0] = str.charAt(i);
-			try {
-				if (str.charAt(i) == str.charAt(i + 1)) {
-					tmpArr[1] = 'x';
+			char[] tmp = new char[2];
+
+			
+			tmp[0] = str.charAt(i);
+			try{
+				// 나눈 두글자가 같다면 뒷글자를 x로
+				if( str.charAt(i) == str.charAt(i+1))
+				{
+					tmp[1] = 'x';
 					i--;
-				} else {
-					tmpArr[1] = str.charAt(i + 1);
+				}else{
+					tmp[1] = str.charAt(i+1);
 				}
-			} catch (StringIndexOutOfBoundsException e) {// 마지막 문자가 비어있을 때
-				tmpArr[1] = 'x';
-				amho.oddFlag = true;
+			}catch(StringIndexOutOfBoundsException e)// str이 홀수라면 마지막에 x
+			{
+				tmp[1] = 'x'; 
 			}
-			playFair.add(tmpArr);
+
+//			// 나눈 두글자가 같다면 뒷글자를 x로
+//			if (tmp[0] == tmp[1]) {
+//				tmp[1] = 'x';
+//				i--;
+//			}
+
+			// qz라면 치환
+//			if ((tmp[0] == 'q' && tmp[1] == 'z') || (tmp[0] == 'z' && tmp[1] == 'q')) {
+//				char temp;
+//				temp = tmp[0];
+//				tmp[0] = tmp[1];
+//				tmp[1] = temp;
+//				
+//				System.out.println("qz치환");
+//			}
+
+			// str이 홀수라면 마지막에 x
+//			if (str.length() % 2 == 1 && i == str.length() - 1) {
+//				tmp[1] = 'x';
+//			}
+
+			playFair.add(tmp);
+			
 		}
 
-//		for(int i = 0 ; i < playFair.size() ; i++ ){
-//			System.out.print(playFair.get(i)[0]+""+playFair.get(i)[1]+" ");
-//		}
-//		System.out.println();
+//		System.out.println(enStr);
 
+		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		for (int i = 0; i < playFair.size(); i++) {
-
-			char[] tmpArr = new char[2];
-			for (int j = 0; j < amho.alphabetBoard.length; j++) { // 쌍자암호의 각각 위치체크
+			char[] tmp = new char[2];
+			for (int j = 0; j < amho.alphabetBoard.length; j++) {
 				for (int k = 0; k < amho.alphabetBoard[j].length; k++) {
 					if (amho.alphabetBoard[j][k] == playFair.get(i)[0]) {
-						r1 = j;
-						c1 = k;
+						x1 = j;
+						y1 = k;
 					}
 					if (amho.alphabetBoard[j][k] == playFair.get(i)[1]) {
-						r2 = j;
-						c2 = k;
+						x2 = j;
+						y2 = k;
 					}
 				}
 			}
-
-			if (r1 == r2) { // 행이 같은경우
-				tmpArr[0] = amho.alphabetBoard[r1][(c1 + 1) % 5];
-				tmpArr[1] = amho.alphabetBoard[r2][(c2 + 1) % 5];
-			} else if (c1 == c2) { // 열이 같은 경우
-				tmpArr[0] = amho.alphabetBoard[(r1 + 1) % 5][c1];
-				tmpArr[1] = amho.alphabetBoard[(r2 + 1) % 5][c2];
-			} else { // 행, 열 모두 다른경우
-				tmpArr[0] = amho.alphabetBoard[r2][c1];
-				tmpArr[1] = amho.alphabetBoard[r1][c2];
+			if((playFair.get(i)[0] == 'q' && playFair.get(i)[1] == 'z') ||
+					(playFair.get(i)[0] == 'z' && playFair.get(i)[1] == 'q')){
+				tmp[0]=playFair.get(i)[1];
+				tmp[1]=playFair.get(i)[0];
+				System.out.println("qz치환");
+			}else if (x1 == x2) // 행이 같은경우
+			
+			{
+				tmp[0] = amho.alphabetBoard[x1][(y1 + 1) % 5];
+				tmp[1] = amho.alphabetBoard[x2][(y2 + 1) % 5];
+			} else if (y1 == y2) // 열이 같은 경우
+			{
+				tmp[0] = amho.alphabetBoard[(x1 + 1) % 5][y1];
+				tmp[1] = amho.alphabetBoard[(x2 + 1) % 5][y2];
+			} else // 행, 열 모두 다른경우
+			{
+				tmp[0] = amho.alphabetBoard[x2][y1];
+				tmp[1] = amho.alphabetBoard[x1][y2];
 			}
-
-			encPlayFair.add(tmpArr);
-
+			
+			encPlayFair.add(tmp);
 		}
-
-		for (int i = 0; i < encPlayFair.size(); i++) {
-			encStr += encPlayFair.get(i)[0] + "" + encPlayFair.get(i)[1] + " ";
+		for(int i = 0 ; i < encPlayFair.size() ; i++)
+		{
+			enStr += encPlayFair.get(i)[0]+""+encPlayFair.get(i)[1]+" ";
 		}
+		
+		
+		return enStr;
 
-		return encStr;
 	}
 
 	void setBoard(String key) {

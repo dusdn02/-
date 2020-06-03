@@ -47,10 +47,7 @@ public class Decry extends JPanel {
 				
 				setBoard(key);
 
-				for (int i = 0; i < str.length(); i++) {
-					if (str.charAt(i) == ' ') // 공백제거
-						str = str.substring(0, i) + str.substring(i + 1, str.length());
-				}
+				str = str.replaceAll(" ", "");// str 공백 제거
 				
 				decryption = strDecryption(key, str);
 				
@@ -64,17 +61,17 @@ public class Decry extends JPanel {
 
 	String strDecryption(String key, String str) {
 		ArrayList<char[]> playFair = new ArrayList<char[]>(); // 바꾸기 전 쌍자암호를 저장할 곳
-		ArrayList<char[]> decPlayFair = new ArrayList<char[]>(); // 바꾼 후의 쌍자암호 저장할 곳
-		int x1 = 0, x2 = 0, y1 = 0, y2 = 0; // 쌍자 암호 두 글자의 각각의 행,열 값
+		ArrayList<char[]> decPlayFair = new ArrayList<char[]>(); // 바꾼 후의 쌍자암호 저장할 곳 
 		String decStr = "";
 
 		for (int i = 0; i < str.length(); i += 2) {
-			char[] tmpArr = new char[2];
-			tmpArr[0] = str.charAt(i);
-			tmpArr[1] = str.charAt(i + 1);
-			playFair.add(tmpArr);
+			char[] tmp = new char[2];
+			tmp[0] = str.charAt(i);
+			tmp[1] = str.charAt(i + 1);
+			playFair.add(tmp);
 		}
-
+		
+		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		for (int i = 0; i < playFair.size(); i++) {
 
 			char[] tmpArr = new char[2];
@@ -90,7 +87,6 @@ public class Decry extends JPanel {
 					}
 				}
 			}
-
 			if (x1 == x2) { // 행이 같은 경우 각각 바로 아래열 대입
 				tmpArr[0] = amho.alphabetBoard[x1][(y1 + 4) % 5];
 				tmpArr[1] = amho.alphabetBoard[x2][(y2 + 4) % 5];
@@ -114,8 +110,9 @@ public class Decry extends JPanel {
 				decStr += decPlayFair.get(i)[0] + "" + decPlayFair.get(i)[1];
 			}
 		}
+		
 
-		if (amho.oddFlag)
+		if (decStr.length() % 2 == 1)
 			decStr = decStr.substring(0, decStr.length() - 1);
 
 		System.out.println(decStr);

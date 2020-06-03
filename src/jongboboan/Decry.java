@@ -18,9 +18,9 @@ public class Decry extends JPanel {
 	JLabel atext = new JLabel("문장 : ");
 	JTextField T_amhokey = new JTextField();
 	JTextField T_atext = new JTextField();
-	public String str;
-	public String key;
-	public String decryption;
+	public String str="";
+	public String key="";
+	public String decryption="";
 
 	public Decry(amho amho) {
 		this.amho = amho;
@@ -44,22 +44,16 @@ public class Decry extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				key = T_amhokey.getText();
 				str = T_atext.getText();
+				
+				setBoard(key);
 
 				for (int i = 0; i < str.length(); i++) {
 					if (str.charAt(i) == ' ') // 공백제거
 						str = str.substring(0, i) + str.substring(i + 1, str.length());
 				}
-
-				decryption = strDecryption(key, str, amho.zCheck);
 				
-				//빈칸 만들기
-//				for( int i = 0 ; i < decryption.length() ; i++)
-//				{
-//					if(blankCheck.charAt(i)=='1')
-//					{
-//						decryption = decryption.substring(0,i)+" "+decryption.substring(i,decryption.length());
-//					}
-//				}
+				decryption = strDecryption(key, str);
+				
 
 				System.out.println("복호화된 문자열 : " + decryption);
 				amho.change("결과");
@@ -68,13 +62,11 @@ public class Decry extends JPanel {
 		});
 	}
 
-	String strDecryption(String key, String str, String zCheck) {
+	String strDecryption(String key, String str) {
 		ArrayList<char[]> playFair = new ArrayList<char[]>(); // 바꾸기 전 쌍자암호를 저장할 곳
 		ArrayList<char[]> decPlayFair = new ArrayList<char[]>(); // 바꾼 후의 쌍자암호 저장할 곳
 		int x1 = 0, x2 = 0, y1 = 0, y2 = 0; // 쌍자 암호 두 글자의 각각의 행,열 값
 		String decStr = "";
-
-		int lengthOddFlag = 1;
 
 		for (int i = 0; i < str.length(); i += 2) {
 			char[] tmpArr = new char[2];
@@ -111,30 +103,59 @@ public class Decry extends JPanel {
 			}
 
 			decPlayFair.add(tmpArr);
-
 		}
-
+		
+		
 		for (int i = 0; i < decPlayFair.size(); i++) // 중복 문자열 돌려놓음
 		{
-			if (i != decPlayFair.size() - 1 && decPlayFair.get(i)[1] == 'x'
-					&& decPlayFair.get(i)[0] == decPlayFair.get(i + 1)[0]) {
+			if (i != decPlayFair.size() - 1 && decPlayFair.get(i)[1] == 'x' && decPlayFair.get(i)[0] == decPlayFair.get(i + 1)[0]) {
 				decStr += decPlayFair.get(i)[0];
 			} else {
 				decStr += decPlayFair.get(i)[0] + "" + decPlayFair.get(i)[1];
 			}
 		}
 
-//		for (int i = 0; i < zCheck.length(); i++)// z위치 찾아서 q로 돌려놓음
-//		{
-//			if (zCheck.charAt(i) == '1')
-//				decStr = decStr.substring(0, i) + 'z' + decStr.substring(i + 1, decStr.length());
-//
-//		}
-
 		if (amho.oddFlag)
 			decStr = decStr.substring(0, decStr.length() - 1);
 
+		System.out.println(decStr);
+		
 		return decStr;
+	}
+	void setBoard(String key) {
+		String tmp_key = ""; // 중복된 문자가 제거된 문자열을 저장할 문자열.
+		int chk = 0;
+
+		key += "abcdefghijklmnopqrstuvwxyz"; // 키에 모든 알파벳을 추가.
+
+		// 중복처리
+		for (int i = 0; i < key.length(); i++) {
+			for (int j = 0; j < tmp_key.length(); j++) {
+				if (key.charAt(i) == tmp_key.charAt(j)) {
+					chk = 1;
+					break;
+				}
+			}
+			if (chk == 0)
+				tmp_key += key.charAt(i);
+			chk = 0;
+
+		}
+//		System.out.println("key확인 : "+tmp_key);
+		// 암호판에 넣기
+		int cnt = 0;
+		for (int i = 0; i < amho.alphabetBoard.length; i++) {
+			for (int j = 0; j < amho.alphabetBoard[i].length; j++) {
+				amho.alphabetBoard[i][j] = tmp_key.charAt(cnt++);
+			}
+		}
+		// 암호판 출력
+		for (int i = 0; i < amho.alphabetBoard.length; i++) {
+			for (int j = 0; j < amho.alphabetBoard[i].length; j++) {
+				System.out.print(amho.alphabetBoard[i][j] + "-");
+			}
+			System.out.println();
+		}
 	}
 
 }

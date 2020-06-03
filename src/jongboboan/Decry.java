@@ -44,7 +44,6 @@ public class Decry extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				key = T_amhokey.getText();
 				str = T_atext.getText();
-				String blankCheck = "";
 
 				for (int i = 0; i < str.length(); i++) {
 					if (str.charAt(i) == ' ') // 공백제거
@@ -52,6 +51,15 @@ public class Decry extends JPanel {
 				}
 
 				decryption = strDecryption(key, str, amho.zCheck);
+				
+				//빈칸 만들기
+//				for( int i = 0 ; i < decryption.length() ; i++)
+//				{
+//					if(blankCheck.charAt(i)=='1')
+//					{
+//						decryption = decryption.substring(0,i)+" "+decryption.substring(i,decryption.length());
+//					}
+//				}
 
 				System.out.println("복호화된 문자열 : " + decryption);
 				amho.change("결과");
@@ -116,12 +124,12 @@ public class Decry extends JPanel {
 			}
 		}
 
-		for (int i = 0; i < zCheck.length(); i++)// z위치 찾아서 q로 돌려놓음
-		{
-			if (zCheck.charAt(i) == '1')
-				decStr = decStr.substring(0, i) + 'z' + decStr.substring(i + 1, decStr.length());
-
-		}
+//		for (int i = 0; i < zCheck.length(); i++)// z위치 찾아서 q로 돌려놓음
+//		{
+//			if (zCheck.charAt(i) == '1')
+//				decStr = decStr.substring(0, i) + 'z' + decStr.substring(i + 1, decStr.length());
+//
+//		}
 
 		if (amho.oddFlag)
 			decStr = decStr.substring(0, decStr.length() - 1);

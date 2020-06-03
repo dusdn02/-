@@ -42,7 +42,14 @@ public class amho extends JFrame {
 			decr.revalidate();
 			decr.repaint();
 		} else if (panelName.equals("°á°ú")) {
-			result = new Result(encr);
+//			Object ende = null;
+			if(encr==null)
+				result= new Result(decr);
+				//ende=decr;
+			else if(decr==null)
+				result= new Result(encr);
+				//ende=encr;
+//			result = new Result(ende);
 			getContentPane().removeAll();
 			getContentPane().add(result);
 			result.revalidate();

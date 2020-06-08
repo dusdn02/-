@@ -74,7 +74,7 @@ public class Decry extends JPanel {
 		int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
 		for (int i = 0; i < playFair.size(); i++) {
 
-			char[] tmpArr = new char[2];
+			char[] tmp = new char[2];
 			for (int j = 0; j < amho.alphabetBoard.length; j++) {
 				for (int k = 0; k < amho.alphabetBoard[j].length; k++) {
 					if (amho.alphabetBoard[j][k] == playFair.get(i)[0]) {
@@ -87,18 +87,23 @@ public class Decry extends JPanel {
 					}
 				}
 			}
-			if (x1 == x2) { // 행이 같은 경우 각각 바로 아래열 대입
-				tmpArr[0] = amho.alphabetBoard[x1][(y1 + 4) % 5];
-				tmpArr[1] = amho.alphabetBoard[x2][(y2 + 4) % 5];
+			if((playFair.get(i)[0] == 'q' && playFair.get(i)[1] == 'z') ||
+					(playFair.get(i)[0] == 'z' && playFair.get(i)[1] == 'q')){
+				tmp[0]=playFair.get(i)[1];
+				tmp[1]=playFair.get(i)[0];
+				System.out.println("qz치환");
+			}else if (x1 == x2) { // 행이 같은 경우 각각 바로 아래열 대입
+				tmp[0] = amho.alphabetBoard[x1][(y1 + 4) % 5];
+				tmp[1] = amho.alphabetBoard[x2][(y2 + 4) % 5];
 			} else if (y1 == y2) { // 열이 같은 경우 각각 바로 옆 열 대입
-				tmpArr[0] = amho.alphabetBoard[(x1 + 4) % 5][y1];
-				tmpArr[1] = amho.alphabetBoard[(x2 + 4) % 5][y2];
+				tmp[0] = amho.alphabetBoard[(x1 + 4) % 5][y1];
+				tmp[1] = amho.alphabetBoard[(x2 + 4) % 5][y2];
 			} else { // 행, 열 다른경우 각자 대각선에 있는 곳.
-				tmpArr[0] = amho.alphabetBoard[x2][y1];
-				tmpArr[1] = amho.alphabetBoard[x1][y2];
+				tmp[0] = amho.alphabetBoard[x2][y1];
+				tmp[1] = amho.alphabetBoard[x1][y2];
 			}
 
-			decPlayFair.add(tmpArr);
+			decPlayFair.add(tmp);
 		}
 		
 		
@@ -112,7 +117,7 @@ public class Decry extends JPanel {
 		}
 		
 
-		if (decStr.length() % 2 == 1)
+		if (decStr.length() % 2 == 1 )//&& decStr.substring(decStr.length())=="x"
 			decStr = decStr.substring(0, decStr.length() - 1);
 
 		System.out.println(decStr);

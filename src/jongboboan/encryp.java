@@ -20,10 +20,8 @@ public class encryp extends JPanel {
 	public String str = "";
 	public String key = "";
 	public String encryption = "";
-	String encr="";
+	String encr = "";
 
-	
-	
 	public encryp(amho amho) {
 		this.amho = amho;
 		setLayout(null);
@@ -80,29 +78,27 @@ public class encryp extends JPanel {
 		ArrayList<char[]> playFair = new ArrayList<char[]>();
 		ArrayList<char[]> encPlayFair = new ArrayList<char[]>();
 		String enStr = "";
-		
 
 		str = str.replaceAll(" ", "");// str 공백 제거
-//		System.out.println(str);
 
 		for (int i = 0; i < str.length(); i += 2) {
 			char[] tmp = new char[2];
 
-			
 			tmp[0] = str.charAt(i);
-			try{
+			try {
 				// 나눈 두글자가 같다면 뒷글자를 x로
-				if( str.charAt(i) == str.charAt(i+1))
-				{
+				if (str.charAt(i) == str.charAt(i + 1)) {
 					tmp[1] = 'x';
 					i--;
-				}else{
-					tmp[1] = str.charAt(i+1);
+				} else {
+					tmp[1] = str.charAt(i + 1);
 				}
-			}catch(StringIndexOutOfBoundsException e)// str이 홀수라면 마지막에 x
+			} catch (StringIndexOutOfBoundsException e)// str이 홀수라면 마지막에 x
 			{
-				tmp[1] = 'x'; 
+				tmp[1] = 'x';
 			}
+			playFair.add(tmp);
+		}
 
 //			// 나눈 두글자가 같다면 뒷글자를 x로
 //			if (tmp[0] == tmp[1]) {
@@ -110,7 +106,7 @@ public class encryp extends JPanel {
 //				i--;
 //			}
 
-			// qz라면 치환
+		// qz라면 치환
 //			if ((tmp[0] == 'q' && tmp[1] == 'z') || (tmp[0] == 'z' && tmp[1] == 'q')) {
 //				char temp;
 //				temp = tmp[0];
@@ -120,14 +116,10 @@ public class encryp extends JPanel {
 //				System.out.println("qz치환");
 //			}
 
-			// str이 홀수라면 마지막에 x
+		// str이 홀수라면 마지막에 x
 //			if (str.length() % 2 == 1 && i == str.length() - 1) {
 //				tmp[1] = 'x';
 //			}
-
-			playFair.add(tmp);
-			
-		}
 
 //		System.out.println(enStr);
 
@@ -146,13 +138,13 @@ public class encryp extends JPanel {
 					}
 				}
 			}
-			if((playFair.get(i)[0] == 'q' && playFair.get(i)[1] == 'z') ||
-					(playFair.get(i)[0] == 'z' && playFair.get(i)[1] == 'q')){
-				tmp[0]=playFair.get(i)[1];
-				tmp[1]=playFair.get(i)[0];
+			if ((playFair.get(i)[0] == 'q' && playFair.get(i)[1] == 'z')
+					|| (playFair.get(i)[0] == 'z' && playFair.get(i)[1] == 'q')) {
+				tmp[0] = playFair.get(i)[1];
+				tmp[1] = playFair.get(i)[0];
 				System.out.println("qz치환");
-			}else if (x1 == x2) // 행이 같은경우
-			
+			} else if (x1 == x2) // 행이 같은경우
+
 			{
 				tmp[0] = amho.alphabetBoard[x1][(y1 + 1) % 5];
 				tmp[1] = amho.alphabetBoard[x2][(y2 + 1) % 5];
@@ -165,15 +157,13 @@ public class encryp extends JPanel {
 				tmp[0] = amho.alphabetBoard[x2][y1];
 				tmp[1] = amho.alphabetBoard[x1][y2];
 			}
-			
+
 			encPlayFair.add(tmp);
 		}
-		for(int i = 0 ; i < encPlayFair.size() ; i++)
-		{
-			enStr += encPlayFair.get(i)[0]+""+encPlayFair.get(i)[1]+" ";
+		for (int i = 0; i < encPlayFair.size(); i++) {
+			enStr += encPlayFair.get(i)[0] + "" + encPlayFair.get(i)[1] + " ";
 		}
-		
-		
+
 		return enStr;
 
 	}
